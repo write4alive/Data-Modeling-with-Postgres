@@ -7,27 +7,33 @@ def create_database():
     - Creates and connects to the sparkifydb
     - Returns the connection and cursor to sparkifydb
     """
-    
-    # connect to default database
-    # conn = psycopg2.connect("host=127.0.0.1 dbname=studentdb user=student password=student")
-    conn = psycopg2.connect(user="student",password="student",host="127.0.0.1",port="5433",database="studentdb")
+    try:
+        print("Trying To Create Databases and Checking Connections")
+        # connect to default database
+        conn = psycopg2.connect(user="student",password="student",host="127.0.0.1",port="5433",database="studentdb")
 
-    conn.set_session(autocommit=True)
-    cur = conn.cursor()
-    
-    # create sparkify database with UTF8 encoding
-    cur.execute("DROP DATABASE IF EXISTS sparkifydb")
-    cur.execute("CREATE DATABASE sparkifydb WITH ENCODING 'utf8' TEMPLATE template0")
+        conn.set_session(autocommit=True)
+        cur = conn.cursor()
 
-    # close connection to default database
-    conn.close()    
-    
-    # connect to sparkify database
-    # conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
-    conn = psycopg2.connect(user="student",password="student",host="127.0.0.1",port="5433",database="sparkifydb")
-    cur = conn.cursor()
-    
-    return cur, conn
+        # create sparkify database with UTF8 encoding
+        cur.execute("DROP DATABASE IF EXISTS sparkifydb")
+        cur.execute("CREATE DATABASE sparkifydb WITH ENCODING 'utf8' TEMPLATE template0")
+
+        # close connection to default database
+        conn.close()    
+        
+        # connect to sparkify database
+        conn = psycopg2.connect(user="student",password="student",host="127.0.0.1",port="5433",database="sparkifydb")
+        cur = conn.cursor() 
+
+        print("Database Creation and Operations Successfuly Completed.")
+
+    except (Exception, psycopg2.Error) as error:
+            if(conn):
+                print("Connection or Operation Fail. Please Check Your Connection String and Parameters", error)
+    finally:
+        if(conn):
+            return cur, conn
 
 
 def drop_tables(cur, conn):
