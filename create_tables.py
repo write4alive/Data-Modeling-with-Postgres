@@ -69,8 +69,8 @@ def main():
     """
     cur, conn = create_database()
     
-    # drop_tables(cur, conn)
-    # create_tables(cur, conn)
+    drop_tables(cur, conn)
+    create_tables(cur, conn)
 
     conn.close()
 
