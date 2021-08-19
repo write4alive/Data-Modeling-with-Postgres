@@ -38,28 +38,38 @@ songplay_table_insert = ("""insert into f_songplays(start_time, user_id, level, 
 values(%s,%s,%s,%s,%s,%s,%s,%s)
 """)
 
-user_table_insert = ("""
+user_table_insert = ("""insert into d_users(user_id, first_name, last_name, gender, level)
+values(%s,%s,%s,%s,%s)
 """)
 
-song_table_insert = ("""
+song_table_insert = ("""insert into d_songs(song_id, title, artist_id, year, duration)
+values(%s,%s,%s,%s,%s)
 """)
 
-artist_table_insert = ("""
+artist_table_insert = ("""insert into d_artists(artist_id, name, location, latitude, longitude)
+values(%s,%s,%s,%s,%s)
 """)
 
 
-time_table_insert = (""" 
+time_table_insert = ("""insert into d_time(start_time, hour, day, week, month, year, weekday)
+values(%s,%s,%s,%s,%s,%s,%s)
 """)
 
 # FIND SONGS
 
-song_select = ("""
+song_select = ("""select * from d_songs
 """)
+
 
 # QUERY LISTS
 
 create_table_queries = [songplay_table_create, user_table_create, song_table_create, artist_table_create, time_table_create]
 drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
+
+
+# Simple Data Analysis Queries
+
+# Top_3_song=(""" """)
 
 
 

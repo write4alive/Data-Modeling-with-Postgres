@@ -7,37 +7,37 @@ from sql_queries import *
 
 def process_song_file(cur, filepath):
     # open song file
-    df = 
+    df = pd.read_json(filepath, lines=True)
 
     # insert song record
-    song_data = 
+    song_data = ""
     cur.execute(song_table_insert, song_data)
     
     # insert artist record
-    artist_data = 
+    artist_data = ""
     cur.execute(artist_table_insert, artist_data)
 
 
 def process_log_file(cur, filepath):
     # open log file
-    df = 
+    df = ""
 
     # filter by NextSong action
-    df = 
+    df = ""
 
     # convert timestamp column to datetime
-    t = 
+    t = ""
     
     # insert time data records
-    time_data = 
-    column_labels = 
-    time_df = 
+    time_data = ""
+    column_labels = ""
+    time_df = ""
 
     for i, row in time_df.iterrows():
         cur.execute(time_table_insert, list(row))
 
     # load user table
-    user_df = 
+    user_df = ""
 
     # insert user records
     for i, row in user_df.iterrows():
@@ -56,7 +56,7 @@ def process_log_file(cur, filepath):
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = 
+        songplay_data = ""
         cur.execute(songplay_table_insert, songplay_data)
 
 
@@ -80,7 +80,7 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
-    conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
+    conn = psycopg2.connect(user="student",password="student",host="127.0.0.1",port="5433",database="sparkifydb")
     cur = conn.cursor()
 
     process_data(cur, conn, filepath='data/song_data', func=process_song_file)
