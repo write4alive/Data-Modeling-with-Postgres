@@ -3,7 +3,7 @@
 songplay_table_drop = "drop table if exists f_songplays"
 user_table_drop = "drop table if exists  d_users"
 song_table_drop = "drop table  if exists d_songs"
-artist_table_drop = "drop table  if exists d_artist"
+artist_table_drop = "drop table  if exists d_artists"
 time_table_drop = "drop table  if exists d_time"
 
 # CREATE TABLES
@@ -17,20 +17,16 @@ user_table_create =     ("""create table if not exists d_users
 """)
 
 song_table_create =     ("""create table if not exists d_songs 
-(song_id varchar primary key, title varchar, artist_id int, year int, duration float)
+(song_id varchar primary key, title varchar, artist_id varchar, year int, duration float)
 """)
 
-artist_table_create =   ("""create table if not exists d_artist 
+artist_table_create =   ("""create table if not exists d_artists 
 (artist_id varchar primary key, name varchar, location varchar, latitude float, longitude float)
 """) 
 
 time_table_create =     ("""create table if not exists d_time 
 (start_time timestamp primary key , hour int , day int ,week int ,month int , year int , weekday int )
 """)
-
-#  postgres_insert_query = """ INSERT INTO getallprices (market,pair,bp,bq,sp,sq,pk,cnt) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"""
-#             record_to_insert =(market, pair, bp, bq, sp, sq, pk, cnt)
-#             cursor.execute(postgres_insert_query, record_to_insert)
 
 # INSERT RECORDS
 
@@ -39,21 +35,26 @@ values(%s,%s,%s,%s,%s,%s,%s,%s)
 """)
 
 user_table_insert = ("""insert into d_users(user_id, first_name, last_name, gender, level)
-values(%s,%s,%s,%s,%s)
+values(%s,%s,%s,%s,%s) ON CONFLICT (user_id) DO NOTHING;
 """)
 
 song_table_insert = ("""insert into d_songs(song_id, title, artist_id, year, duration)
-values(%s,%s,%s,%s,%s)
+values(%s,%s,%s,%s,%s) ON CONFLICT (song_id) DO NOTHING;
 """)
 
 artist_table_insert = ("""insert into d_artists(artist_id, name, location, latitude, longitude)
-values(%s,%s,%s,%s,%s)
+values(%s,%s,%s,%s,%s) ON CONFLICT (artist_id) DO NOTHING
 """)
 
+# artist_table_insert = ("""insert into d_artists(artist_id, name, location, latitude, longitude)
+# values(%s,%s,%s,%s,%s) ON CONFLICT (artist_id) DO insert into dim_data_dup_log (log_ts timestamp, duplicated_id, data_table) values(current_timestamp,artist_id,'d_artists')
+# """)
 
 time_table_insert = ("""insert into d_time(start_time, hour, day, week, month, year, weekday)
-values(%s,%s,%s,%s,%s,%s,%s)
+values(%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (start_time) DO NOTHING;
 """)
+
+
 
 # FIND SONGS
 
