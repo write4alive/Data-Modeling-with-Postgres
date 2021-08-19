@@ -25,7 +25,7 @@ artist_table_create =   ("""create table if not exists d_artists
 """) 
 
 time_table_create =     ("""create table if not exists d_time 
-(start_time timestamp primary key , hour int , day int ,week int ,month int , year int , weekday int )
+(start_time int primary key , hour int , day int ,week int ,month int , year int , weekday int )
 """)
 
 # INSERT RECORDS
@@ -35,7 +35,7 @@ values(%s,%s,%s,%s,%s,%s,%s,%s)
 """)
 
 user_table_insert = ("""insert into d_users(user_id, first_name, last_name, gender, level)
-values(%s,%s,%s,%s,%s) ON CONFLICT (user_id) DO NOTHING;
+values(%s,%s,%s,%s,%s) ON CONFLICT (user_id) DO UPDATE SET level=EXCLUDED.level;
 """)
 
 song_table_insert = ("""insert into d_songs(song_id, title, artist_id, year, duration)
@@ -58,7 +58,7 @@ values(%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (start_time) DO NOTHING;
 
 # FIND SONGS
 
-song_select = ("""select * from d_songs
+song_select = ("""select song_id,artist_id from d_songs
 """)
 
 
