@@ -57,8 +57,8 @@ def process_log_file(cur, filepath):
         else:
             songid, artistid = None, None
 
-        # insert songplay record
-        songplay_data = list(df[['start_time', 'user_id', 'level', 'song_id', 'artist_id', 'session_id', 'location', 'user_agent']].values[0])
+        # insert songplay record                 
+        songplay_data = (row.ts, row.userId, row.level, songid, artistid, row.sessionId, row.location, row.userAgent)
         cur.execute(songplay_table_insert, songplay_data)
 
 
@@ -95,7 +95,5 @@ if __name__ == "__main__":
     main()
 
 
-
-    # insert song record
-    # song_data = list(df[['song_id', 'title', 'artist_id', 'year', 'duration']].values[0])
-    # cur.execute(song_table_insert, song_data)
+     #   songplay_data = list(df[['ts', 'userId', 'level', 'song_id', 'artist_id', 'sessionId', 'location', 'userAgent']].values[0])
+        # songplay_data = (index, pd.to_datetime(row.ts, unit='ms'),row.userId, row.level,songid,artistid,row.sessionId, row.location, row.userAgent)

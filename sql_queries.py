@@ -9,7 +9,7 @@ time_table_drop = "drop table  if exists d_time"
 # CREATE TABLES
 
 songplay_table_create = ("""create table if not exists f_songplays 
-(songplay_id serial primary key, start_time timestamp, user_id int, level varchar, song_id varchar, artist_id varchar , session_id int not null , location varchar, user_agent varchar)
+(songplay_id serial primary key, start_time bigint, user_id int, level varchar, song_id varchar, artist_id varchar , session_id int not null , location varchar, user_agent varchar)
 """)
 
 user_table_create =     ("""create table if not exists d_users 
@@ -25,7 +25,7 @@ artist_table_create =   ("""create table if not exists d_artists
 """) 
 
 time_table_create =     ("""create table if not exists d_time 
-(start_time int primary key , hour int , day int ,week int ,month int , year int , weekday int )
+(start_time bigint primary key , hour int , day int ,week int ,month int , year int , weekday int )
 """)
 
 # INSERT RECORDS
@@ -61,6 +61,9 @@ values(%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (start_time) DO NOTHING;
 song_select = ("""select song_id,artist_id from d_songs
 """)
 
+# ON songs.artist_id = artists.artist_id
+
+# WHERE songs.title=(%s) AND artists.name=(%s) AND songs.duration=(%s)
 
 # QUERY LISTS
 
