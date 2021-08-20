@@ -1,10 +1,11 @@
 # DROP TABLES
 
-songplay_table_drop = "drop table if exists f_songplays"
+
 user_table_drop = "drop table if exists  d_users"
 song_table_drop = "drop table  if exists d_songs"
 artist_table_drop = "drop table  if exists d_artists"
 time_table_drop = "drop table  if exists d_time"
+songplay_table_drop = "drop table if exists f_songplays"
 
 # CREATE TABLES
 
@@ -46,19 +47,16 @@ artist_table_insert = ("""insert into d_artists(artist_id, name, location, latit
 values(%s,%s,%s,%s,%s) ON CONFLICT (artist_id) DO NOTHING
 """)
 
-# artist_table_insert = ("""insert into d_artists(artist_id, name, location, latitude, longitude)
-# values(%s,%s,%s,%s,%s) ON CONFLICT (artist_id) DO insert into dim_data_dup_log (log_ts timestamp, duplicated_id, data_table) values(current_timestamp,artist_id,'d_artists')
-# """)
-
 time_table_insert = ("""insert into d_time(start_time, hour, day, week, month, year, weekday)
 values(%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (start_time) DO NOTHING;
 """)
 
 
-
 # FIND SONGS
 
-song_select = ("""select song_id,artist_id from d_songs
+song_select = ("""select s.song_id , s.artist_id 
+from d_songs s ,d_artists a
+where s.artist_id=a.artist_id and s.title=(%s) AND a.name=(%s) AND s.duration=(%s)
 """)
 
 # ON songs.artist_id = artists.artist_id
@@ -68,7 +66,7 @@ song_select = ("""select song_id,artist_id from d_songs
 # QUERY LISTS
 
 create_table_queries = [songplay_table_create, user_table_create, song_table_create, artist_table_create, time_table_create]
-drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
+drop_table_queries = [user_table_drop, song_table_drop, artist_table_drop, time_table_drop,songplay_table_drop]
 
 
 # Simple Data Analysis Queries

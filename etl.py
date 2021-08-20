@@ -2,6 +2,7 @@ import os
 import glob
 from numpy import promote_types
 from pandas._libs.tslibs.timestamps import Timestamp
+from pandas.core.indexing import convert_to_index_sliceable
 import psycopg2
 import pandas as pd
 from sql_queries import *
@@ -31,9 +32,11 @@ def process_log_file(cur, filepath):
     t = pd.to_datetime(df['ts'], unit='ms')
     
     # insert time data records
-    time_data = ([int(tim.timestamp()), tim.hour, tim.day, tim.week, tim.month, tim.year, tim.weekday()] for tim in t)
-    column_labels = ("start_time", "hour", "day", "week", "month", "year", "weekday")
+    t = pd.to_datetime(df['ts'], unit='ms')
+    time_data = (df['ts'], t.dt.hour, t.dt.day, t.dt.weekofyear, t.dt.month, t.dt.year, t.dt.weekday)
+    column_labels = ['timestamp', 'hour', 'day', 'week of year', 'month', 'year', 'weekday']
     time_df = pd.DataFrame(dict(zip(column_labels, time_data)))
+    print(time_df.head())
 
     for i, row in time_df.iterrows():
         cur.execute(time_table_insert, list(row))
@@ -97,3 +100,38 @@ if __name__ == "__main__":
 
      #   songplay_data = list(df[['ts', 'userId', 'level', 'song_id', 'artist_id', 'sessionId', 'location', 'userAgent']].values[0])
         # songplay_data = (index, pd.to_datetime(row.ts, unit='ms'),row.userId, row.level,songid,artistid,row.sessionId, row.location, row.userAgent)
+
+
+
+#         time_table_create = ("""
+# CREATE TABLE IF NOT EXISTS time (
+#         start_time timestamp,
+#         hour int,
+#         day int,
+#         week int,
+#         month int,
+#         year int,
+#         weekday int
+#     );
+# """)
+# time_table_insert = ("""
+#     INSERT INTO time (start_time, hour, day, week, month, year, weekday)
+#     VALUES(%s, %s, %s, %s, %s, %s, %s)
+# """)
+# #### ETL.py file ####
+# # convert timestamp column to datetime
+#     t = pd.to_datetime(df.ts, unit='ms')
+    
+#     # insert time data records
+#     time_data = (t, t.dt.hour, t.dt.day, t.dt.week, t.dt.month, t.dt.year, t.dt.weekday)
+#     column_labels = ("start_time", "hour", "day", "week", "month", "year", "weekday")
+#     time_df = pd.DataFrame({c: d for c,d in zip (column_labels, time_data)}).dropna()
+#     for i, row in time_df.iterrows():
+#         cur.execute(time_table_insert, list(row))
+
+
+
+# time working working convert_to_index_sliceable
+#  time_data = ([int(tim.timestamp()), tim.hour, tim.day, tim.week, tim.month, tim.year, tim.weekday()] for tim in t)
+#     column_labels = ("start_time", "hour", "day", "week", "month", "year", "weekday")
+#     time_df = pd.DataFrame(dict(zip(column_labels, time_data)))
