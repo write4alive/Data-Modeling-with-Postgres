@@ -79,3 +79,11 @@ Create Tables
 
 
 
+Queries that you can use on you tables:
+
+Select * from f_songplays LIMIT 10;
+Select * from d_artists   LIMIT 10;
+Select * from d_songs     LIMIT 10;
+Select * from d_users     LIMIT 10;
+Select * from d_time      LIMIT 10;
+
