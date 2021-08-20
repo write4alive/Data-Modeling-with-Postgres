@@ -94,18 +94,23 @@ Below are steps you can follow to complete the project:
 
 
 <h2>Table results in postgresql</h2>
-Table List
-![p1_db_tables_attributes](https://user-images.githubusercontent.com/16669517/130276401-348602c1-e3d5-48f3-8861-1a4342628a3a.PNG)
-Fact songplays
-![fact songplays](https://user-images.githubusercontent.com/16669517/130276252-b47fa04f-b7e2-4998-8a1b-265d3c887727.PNG)
-Dim users
-![dim users](https://user-images.githubusercontent.com/16669517/130276375-7393a281-5975-46dd-b5f4-a6eb42339b11.PNG)
-Dim time
-![dim time](https://user-images.githubusercontent.com/16669517/130276382-71270b47-799d-4adf-91b7-d422051c0f08.PNG)
-Dim songs
-![dim songs](https://user-images.githubusercontent.com/16669517/130276389-24cfd679-f57c-4d33-bbe2-aa7a8e80fcb4.PNG)
-Dim artists
-![dim artist](https://user-images.githubusercontent.com/16669517/130276394-a66a8b26-fe40-4b00-8a9c-50d6e3bb0aa7.PNG)
+Table List<br>
+![p1_db_tables_attributes](https://user-images.githubusercontent.com/16669517/130276401-348602c1-e3d5-48f3-8861-1a4342628a3a.PNG)<br>
+  
+Fact songplays<br>
+![fact songplays](https://user-images.githubusercontent.com/16669517/130276252-b47fa04f-b7e2-4998-8a1b-265d3c887727.PNG)<br>
+  
+Dim users<br>
+![dim users](https://user-images.githubusercontent.com/16669517/130276375-7393a281-5975-46dd-b5f4-a6eb42339b11.PNG)<br>
+  
+Dim time<br>
+![dim time](https://user-images.githubusercontent.com/16669517/130276382-71270b47-799d-4adf-91b7-d422051c0f08.PNG)<br>
+  
+Dim songs<br>
+![dim songs](https://user-images.githubusercontent.com/16669517/130276389-24cfd679-f57c-4d33-bbe2-aa7a8e80fcb4.PNG)<br>
+  
+Dim artists<br>
+![dim artist](https://user-images.githubusercontent.com/16669517/130276394-a66a8b26-fe40-4b00-8a9c-50d6e3bb0aa7.PNG)<br>
 
 
 
