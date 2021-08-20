@@ -1,13 +1,12 @@
-# DROP TABLES
 
-
+# DROP TABLES - First we drop all fact and dim tables if they exists.
 user_table_drop = "drop table if exists  d_users"
 song_table_drop = "drop table  if exists d_songs"
 artist_table_drop = "drop table  if exists d_artists"
 time_table_drop = "drop table  if exists d_time"
 songplay_table_drop = "drop table if exists f_songplays"
 
-# CREATE TABLES
+# CREATE TABLES  - Creating Fact and Dim Tables of project.
 
 songplay_table_create = ("""create table if not exists f_songplays 
 (songplay_id serial primary key, start_time bigint, user_id int, level varchar, song_id varchar, artist_id varchar , session_id int not null , location varchar, user_agent varchar)
@@ -29,7 +28,7 @@ time_table_create =     ("""create table if not exists d_time
 (start_time bigint primary key , hour int , day int ,week int ,month int , year int , weekday int )
 """)
 
-# INSERT RECORDS
+# INSERT RECORDS - Insert queries of fact and dim tables. Aoiding data duplication with using " ON CONFLICT DO ".
 
 songplay_table_insert = ("""insert into f_songplays(start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
 values(%s,%s,%s,%s,%s,%s,%s,%s)
@@ -52,26 +51,20 @@ values(%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (start_time) DO NOTHING;
 """)
 
 
-# FIND SONGS
+# FIND SONGS - Joining two dimension table for getting spesific song attributes.
 
 song_select = ("""select s.song_id , s.artist_id 
 from d_songs s ,d_artists a
 where s.artist_id=a.artist_id and s.title=(%s) AND a.name=(%s) AND s.duration=(%s)
 """)
 
-# ON songs.artist_id = artists.artist_id
 
-# WHERE songs.title=(%s) AND artists.name=(%s) AND songs.duration=(%s)
-
-# QUERY LISTS
+# QUERY LISTS -  These lists are containing the all create and drop table queries all in one.
 
 create_table_queries = [songplay_table_create, user_table_create, song_table_create, artist_table_create, time_table_create]
 drop_table_queries = [user_table_drop, song_table_drop, artist_table_drop, time_table_drop,songplay_table_drop]
 
 
-# Simple Data Analysis Queries
-
-# Top_3_song=(""" """)
 
 
 

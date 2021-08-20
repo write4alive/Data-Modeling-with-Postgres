@@ -9,6 +9,20 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+
+    '''
+    process_song_file(cur, filepath)::
+    
+    Paramters:
+    cur      :cursor
+    filepath :file path of song file
+
+    Reading from source file  'data/song_data'
+
+    Whit  using defined sql queries and insert data to song and artist dim tables.
+
+    '''
+
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -22,6 +36,27 @@ def process_song_file(cur, filepath):
   
 
 def process_log_file(cur, filepath):
+
+    '''
+    process_log_file(cur, filepath)::
+    
+    Paramters:
+    cur      :cursor
+    filepath :file path of log file
+
+
+    Reading  from source file 'data/log_data'
+
+    Filtering  page with 'NextSong'
+    
+    Converting timestamp  to datetime  with using pandas
+
+    inserting rows to time and user table with iterating list of rows.
+
+    finally insterting data to tables.
+
+    '''
+
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -66,6 +101,17 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    '''
+    process_data(cur,conn,filepath,func)  starting data proccessing  of song and log files
+
+    Parameters:
+        cur      :cursor
+        con      :connection
+        filepath :source file path
+        func     :accepting function 
+
+    '''
+
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -85,6 +131,22 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+
+    '''
+    Connecting sparkifydb database  and  starting file operations , ingesting operations
+
+    Data  source are  inside project file  'data/song_data' and 'data/log_data'
+
+    process_data(cur,conn,filepath,func)  starting data proccessing  of song and log files
+
+    Parameters:
+        cur      :cursor
+        con      :connection
+        filepath :source file path
+        process_song_file() : processing song files
+        process_log_file()  : processing log  files
+
+    '''
     conn = psycopg2.connect(user="student",password="student",host="127.0.0.1",port="5433",database="sparkifydb")
     cur = conn.cursor()
 
@@ -96,42 +158,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-     #   songplay_data = list(df[['ts', 'userId', 'level', 'song_id', 'artist_id', 'sessionId', 'location', 'userAgent']].values[0])
-        # songplay_data = (index, pd.to_datetime(row.ts, unit='ms'),row.userId, row.level,songid,artistid,row.sessionId, row.location, row.userAgent)
-
-
-
-#         time_table_create = ("""
-# CREATE TABLE IF NOT EXISTS time (
-#         start_time timestamp,
-#         hour int,
-#         day int,
-#         week int,
-#         month int,
-#         year int,
-#         weekday int
-#     );
-# """)
-# time_table_insert = ("""
-#     INSERT INTO time (start_time, hour, day, week, month, year, weekday)
-#     VALUES(%s, %s, %s, %s, %s, %s, %s)
-# """)
-# #### ETL.py file ####
-# # convert timestamp column to datetime
-#     t = pd.to_datetime(df.ts, unit='ms')
-    
-#     # insert time data records
-#     time_data = (t, t.dt.hour, t.dt.day, t.dt.week, t.dt.month, t.dt.year, t.dt.weekday)
-#     column_labels = ("start_time", "hour", "day", "week", "month", "year", "weekday")
-#     time_df = pd.DataFrame({c: d for c,d in zip (column_labels, time_data)}).dropna()
-#     for i, row in time_df.iterrows():
-#         cur.execute(time_table_insert, list(row))
-
-
-
-# time working working convert_to_index_sliceable
-#  time_data = ([int(tim.timestamp()), tim.hour, tim.day, tim.week, tim.month, tim.year, tim.weekday()] for tim in t)
-#     column_labels = ("start_time", "hour", "day", "week", "month", "year", "weekday")
-#     time_df = pd.DataFrame(dict(zip(column_labels, time_data)))
