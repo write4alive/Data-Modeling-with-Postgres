@@ -51,22 +51,17 @@ songplays - records in log data associated with song plays i.e. records with pag
 songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
 
 <h3>Dimension Tables</h3>
+<li>users - users in the app <br>
+user_id, first_name, last_name, gender, level<br><br>
 
-users - users in the app
+<li>songs - songs in music database  <br>
+song_id, title, artist_id, year, duration<br><br>
 
-user_id, first_name, last_name, gender, level
+<li>artists - artists in music database<br>
+artist_id, name, location, latitude, longitude<br><br>
 
-songs - songs in music database
-
-song_id, title, artist_id, year, duration
-
-artists - artists in music database
-
-artist_id, name, location, latitude, longitude
-
-time - timestamps of records in songplays broken down into specific units
-
-start_time, hour, day, week, month, year, weekday
+<li>time - timestamps of records in songplays broken down into specific units<br>
+start_time, hour, day, week, month, year, weekday<br>
 
 
 <h3>Project Template</h3>
@@ -75,36 +70,26 @@ To get started with the project, go to the workspace on the next page, where you
 
 In addition to the data files, the project workspace includes six files:
 
-1.test.ipynb displays the first few rows of each table to let you check your database.
-
-2.create_tables.py drops and creates your tables. You run this file to reset your tables before each time you run your ETL scripts.
-
-3.etl.ipynb reads and processes a single file from song_data and log_data and loads the data into your tables. This notebook contains detailed instructions on the ETL process for each of the tables.
-
-4.etl.py reads and processes files from song_data and log_data and loads them into your tables. You can fill this out based on your work in the ETL notebook.
-
-5.sql_queries.py contains all your sql queries, and is imported into the last three files above.
-
-6.README.md provides discussion on your project.
+<li>test.ipynb displays the first few rows of each table to let you check your database.
+<li>create_tables.py drops and creates your tables. You run this file to reset your tables before each time you run your ETL scripts.
+<li>etl.ipynb reads and processes a single file from song_data and log_data and loads the data into your tables. This notebook contains detailed instructions on the ETL process for each of the tables.
+<li>etl.py reads and processes files from song_data and log_data and loads them into your tables. You can fill this out based on your work in the ETL notebook.
+<li>sql_queries.py contains all your sql queries, and is imported into the last three files above.
+<li>README.md provides discussion on your project.
 
 
 <h3>Project Steps</h3>
 Below are steps you can follow to complete the project:
 
 <h4>Create Tables</h4>
-1.Write CREATE statements in sql_queries.py to create each table.
-
-2.Write DROP statements in sql_queries.py to drop each table if it exists.
-
-3.Run create_tables.py to create your database and tables.
-
+<li>Write CREATE statements in sql_queries.py to create each table.
+<li>Write DROP statements in sql_queries.py to drop each table if it exists.
+<li>Run create_tables.py to create your database and tables.
 
 
 <h2>Queries that you can use on you tables:</h2>
-
-Select * from f_songplays LIMIT 10;
-
-Select * from d_artists   LIMIT 10
+<li>Select * from f_songplays LIMIT 10;
+<li>Select * from d_artists   LIMIT 10
 
 
 
