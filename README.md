@@ -1,5 +1,5 @@
-#Data Engineering Nano Degree Programm of Udacity - Project 1 -
-</h1>Project: Data Modeling with Postgres</h1>
+Data Engineering Nano Degree Programm of Udacity - Project 1 -
+<h1>Project: Data Modeling with Postgres</h1>
 
 <h3>Introduction</h3>
 
